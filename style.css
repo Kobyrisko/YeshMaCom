@@ -1,0 +1,15 @@
+.small
+{
+		height: 5px;
+    	width: 5px;
+}
+img.icon
+{
+		height: 50px;
+    	width: 50px;
+}
+#list .small {
+	height: 500px;
+    width: 500px;
+}
+

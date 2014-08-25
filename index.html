@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	
+	<!--google maps-->
+	<link rel="stylesheet" href="google.css"/>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+	<script src="google.js"></script>
+	<link rel="stylesheet" href="jQueryTheme/jquery-ui.css">
+	
+	<script src="jQueryTheme/js/jquery-1.10.2.js"></script>
+	<link rel="stylesheet" href="jQueryMobile/RTL/rtl.jquery.mobile-1.4.0.css" />
+	<link rel="stylesheet" href="jQueryMobile/jqm-icon-pack-fa.css" />
+	
+	<script src="jQueryMobile/RTL/rtl.jquery.mobile-1.4.0.js"></script>
+	<script type="text/javascript" src="camera.js"></script>
+	<link rel="stylesheet" href="Gui.css" />
+	<script src="Initialize.js"></script>
+	<script src = "AjaxJson.js"> </script>
+	
+	<script src="cordova.js"></script>
+	<link rel="stylesheet" href="placeStyle.css">
+</head>
+
+<body onload="Initialize.Initialize()">
+	
+<!-- First Page Start-->
+<div data-role="page" id = "firstPage">
+	<button id = "getStartedButton" >Get started!</button>
+	<button>Log in</button>
+	<h4>Do you have a Facebook account?</h4>
+</div>
+<!-- First Page End-->	
+	
+	
+	
+<div data-role="page" id="loginPage" data-theme="a">
+<div class = "header"></div>
+<h2>Welcome To YeshMa.com</h2>
+<h3>Please Sign-In with facebook</h3>
+<footer data-role= "footer" data-position = "fixed" data-theme = "b">
+	<nav data-role = "navbar">
+		<ul>
+			<li ><a href="#map" data-icon ="home">Home</a></li>
+			<li><a href="#page2" data-icon ="grid">Place List</a></li>
+			<li><a href="#page4" data-icon ="info">Add new page</a></li>
+		</ul>
+	</nav>
+</footer>
+
+<form action = "http://10.0.0.7:8080/YeshMaComServer/PlacesServlet/addFile" enctype="multipart/form-data" method="post">
+	<!--<input type="text" name="Username" placeholder="Username"/>
+	<input type="password" name="Password"  placeholder="Password"/>-->0
+	<input type="file" name= "fileUpload" />
+	<input type="submit" name="some_name" value="Submit" id="some_name"/>
+</form>
+
+</div>
+
+
+<div data-role="page" id="page2" >
+	<div class = "header"> </div>
+<article data-role="content">	
+	<ul data-role= "listview" data-filter="true" id ="list">
+	</ul>
+</article>
+
+		<div data-role="controlgroup" class="leftButtons" data-type="horizontal">
+        <a href="#addNewPlace" data-role="button" data-icon="plus" data-iconpos="notext">addNewPlace</a>
+        <a href="#map" data-role="button" data-icon="map-marker" data-iconpos="notext">Search</a>
+        <a href="#menu_page" data-role="button" data-icon="gear" data-iconpos="notext" data-rel="dialog">View</a>
+        <a href="#menu_page" data-role="button" data-icon="arrow-d" data-iconpos="notext" data-rel="dialog">Menu</a>
+        <a href="#menu_page" data-role="button" data-icon="arrow-u" data-iconpos="notext" data-rel="dialog">Menu</a>
+		</div>
+
+<footer data-role= "footer" data-position = "fixed" data-theme = "b">
+	<h1>Koby Riskovich</h1>
+</footer>
+<p id="label"></p>
+</div>
+
+<div data-role="page" id="page3" >
+	<div class = "header"></div>
+	<div id="updateDiv">
+	</div>
+	<button onclick="AttributesAdder.onclick()">Get</button>
+	<footer data-role= "footer" data-position = "fixed" data-theme = "b">
+	<nav data-role = "navbar">
+		<ul>
+			<li ><a href="#loginPage" data-icon ="home">Home</a></li>
+			<li><a href="#page2" data-icon ="grid">Place List</a></li>
+			<li><a href="#page4" data-icon ="info">Add new page</a></li>
+		</ul>
+	</nav>
+</footer>
+<script src=AddButton.js> </script>	
+</div>
+
+	<div data-role="page" id="addNewPlace">
+	<div class = "header"></div>
+	<img style="display:none;width:100px; height:100px;" id="smallImage" src="" align="center"/>
+	<form id="addNewPlaceForm" action="#" method="post">
+		<h4>שם העסק</h4>
+		<input type="text" id="placeName" name="placeName" value="" class= "centerInput"/>
+		<h4>טלפון</h4>
+		<input type="tel" id="tel" name="tel" value="" class= "centerInput"/>
+		<h4>אימייל</h4>
+		<input type="email" id="email" name="email" value="" class= "centerInput"/>
+		<h4>כתובת</h4>
+		<input type="text" id = "autocomplete" name="address" onfocus="geolocate();"/>
+		<h4>פרטים</h4>
+		<input type="text" id="placeInfo" name="placeInfo" value=""/>
+		<h4>מוזיקה</h4>
+		<div data-role="fieldcontain">
+   		<fieldset data-role="controlgroup">
+	    <input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" />
+	    <label for="checkbox-2">רוק</label>
+	    <input type="checkbox" name="checkbox-3" id="checkbox-3" class="custom" />
+	    <label for="checkbox-3">פופ</label>
+	    <input type="checkbox" name="checkbox-4" id="checkbox-4" class="custom" />
+	    <label for="checkbox-4">שנות ה80</label>
+    	</fieldset>
+		</div>
+		<div class = "halfDiv">
+		<button data-icon = "picture-o" name="uploadFile" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">בחר תמונה</button>
+		<input data-icon = "save" type="submit" value="Submit a new place" id="submitButton" onclick="AttributesAdder.submitFormAjax();"/>
+		</div>
+	</form>
+<footer data-role= "footer" data-position = "fixed" data-theme = "b">
+	<h1>Koby Riskovich</h1>
+</footer>
+
+</div>
+		<div data-role="page" id="placePage" >
+			<div class = "header"></div>
+			<div id = "placeInformation" class="placeStyle">
+			<div class="centerImage">
+			<img />
+			</div>
+			<div class="seperator"></div>
+			<h1 id = "currentPlaceName"></h1>
+			<div class="seperator"></div>
+			<h2 id = "currentPlaceID"></h2>
+			<div class="seperator"></div>
+			<h3 id = "currentPlaceInfo"></h3>
+			<h3 id = "currentPlaceAddress"></h3>
+			<h3 id = "currentPlaceCapacity"></h3>
+			<h3 id = "currentPlaceLastUpdated"></h3>
+			</div>
+			<footer data-role= "footer" data-position = "fixed" data-theme = "b">
+			<nav data-role = "navbar">
+			<ul>
+				<li ><a href="#loginPage" data-icon ="home">Home</a></li>
+				<li><a href="#page2" data-icon ="grid">Place List</a></li>
+				<li><a href="#page4" data-icon ="info">Add new page</a></li>
+			</ul>
+	</nav>
+	</footer>
+			
+		</div>
+		<div data-role = "page" id = "map">
+			<div class = "header"></div>
+			    <div id="panel">
+     				 <input id = "autocomplete2" type="text" value="Sydney, NSW" onfocus = "geolocate()">
+     				 <input type= "button" id = "submitAuto" onclick="codeAddress();" value="get"/>
+   			    </div>
+			<div id = "map-canvas">
+			</div>
+		</div>
+<script>
+	
+</script>
+</body>
+</html>

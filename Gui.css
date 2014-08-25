@@ -1,0 +1,36 @@
+#firstPage{
+	background-image: url("images/BG1.jpeg");
+	background-size: 100%;
+}
+
+#firstPage button{
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 20%;
+}
+#firstPage h4{
+text-align: center;
+color: black;
+}
+.leftButtons{
+	position: absolute;
+	top: 50px;
+	left: 10px;
+}
+#addNewPlace h4{
+	margin: 0 auto;
+  	text-align: center;
+  	padding: 20px;
+}
+#addNewPlace input{
+	margin: 0 auto;
+	
+}
+.centerInput{
+	margin: 0 auto;
+}
+.halfDiv{
+	width: 50%;
+	margin: 0 auto;
+}
+
